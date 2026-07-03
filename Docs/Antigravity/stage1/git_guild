@@ -44,3 +44,28 @@ git push -u -f origin main
 ```
 
 The `-f` (force) flag in the last command is the magic key here. It tells GitHub to discard whatever history it currently has (like the default README) and replace it entirely with your local project's history.
+
+
+Edited git_guild
+Ran command: `git add .`
+Ran command: `git commit -m "initial modbus code"`
+Ran command: `git branch -M master`
+Ran command: `git remote add origin git@github.com:ssriblo/stm32g030_modbus_slave.git`
+Ran command: `git push -u -f origin main`
+Viewed git_guild:19-46
+
+Ah, I see what happened! In step 4, you ran:
+`git branch -M master`
+
+But then in step 6, you tried to push the `main` branch:
+`git push -u -f origin main`
+
+Since your branch is currently named `master`, Git couldn't find a branch named `main` to push.
+
+To fix this, simply run this command to push your `master` branch instead:
+
+```bash
+git push -u -f origin master
+```
+
+*(Or if you'd prefer to use `main` going forward, just run `git branch -M main` first, and then run `git push -u -f origin main`).*
