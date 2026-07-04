@@ -189,7 +189,8 @@ def main():
     print("\nTest complete.")
 
 if __name__ == '__main__':
-#    ./python/modbus_test.py --port /dev/ttyUSB0 --baud 9600 --slave 1
+# run:
+#  ./.venv/bin/python modbus_test.py --port /dev/ttyUSB0 --baud 9600 --slave 1 --loop --timeout 0.2
 
   try:
         main()
