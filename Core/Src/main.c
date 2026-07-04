@@ -21,9 +21,6 @@
 #include "rtc.h"
 #include "usart.h"
 #include "gpio.h"
-#include <string.h>
-
-//#define LOOP_TEST_
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -53,10 +50,6 @@
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
-
-#ifdef LOOP_TEST_
-void RS485_LoopTest(void);
-#endif
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -121,31 +114,6 @@ int main(void)
   }
   /* USER CODE END 3 */
 }
-
-#ifdef LOOP_TEST_
-void RS485_LoopTest(void)
-{
-    uint8_t tx_msg[] = "RS485_LOOP_TEST_OK\r\n";
-    uint8_t rx_msg[32] = {0};
-    
-    // 1. Transmit Data
-    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_1, GPIO_PIN_SET); // DE High
-    HAL_UART_Transmit(&huart2, tx_msg, strlen((char*)tx_msg), 1000);
-    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_1, GPIO_PIN_RESET); // DE Low
-    
-    // 2. Wait to receive data (Simulating receiving the same data if A/B connected to an echoing device, 
-    // or if the transceiver can read its own bus)
-    HAL_StatusTypeDef status = HAL_UART_Receive(&huart2, rx_msg, strlen((char*)tx_msg), 1000);
-    
-    if (status == HAL_OK && memcmp(tx_msg, rx_msg, strlen((char*)tx_msg)) == 0) {
-        // Test passed - Blink LED or just delay
-        HAL_Delay(500); 
-    } else {
-        // Test failed or timed out
-        HAL_Delay(500);
-    }
-}
-#endif
 
 /**
   * @brief System Clock Configuration

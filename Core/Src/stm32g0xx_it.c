@@ -22,6 +22,7 @@
 #include "stm32g0xx_it.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include "modbus_slave.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -55,7 +56,7 @@
 /* USER CODE END 0 */
 
 /* External variables --------------------------------------------------------*/
-
+extern UART_HandleTypeDef huart2;
 /* USER CODE BEGIN EV */
 
 /* USER CODE END EV */
@@ -140,17 +141,17 @@ void SysTick_Handler(void)
 /* please refer to the startup file (startup_stm32g0xx.s).                    */
 /******************************************************************************/
 
-/* USER CODE BEGIN 1 */
-#include "modbus_slave.h"
-
+/**
+  * @brief This function handles USART2 global interrupt / USART2 wake-up interrupt through EXTI line 26.
+  */
 void USART2_IRQHandler(void)
 {
   /* USER CODE BEGIN USART2_IRQn 0 */
   Modbus_UART_IRQHandler();
   /* USER CODE END USART2_IRQn 0 */
-  /* HAL_UART_IRQHandler(&huart2); */ /* Handled by custom Modbus ISR */
+  HAL_UART_IRQHandler(&huart2);
   /* USER CODE BEGIN USART2_IRQn 1 */
 
   /* USER CODE END USART2_IRQn 1 */
 }
-/* USER CODE END 1 */
+

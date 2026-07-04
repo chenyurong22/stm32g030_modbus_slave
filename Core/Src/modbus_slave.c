@@ -129,7 +129,7 @@ void Modbus_Init(void) {
 
     // Create nanoMODBUS instance
     nmbs_server_create(&nmbs, MODBUS_DEFAULT_SLAVE_ID, &platform_conf, &callbacks);
-    nmbs_set_read_timeout(&nmbs, 100); // 100ms timeout
+    nmbs_set_read_timeout(&nmbs, 3000); // 100ms timeout
     nmbs_set_byte_timeout(&nmbs, 20);  // 20ms byte timeout (modbus inter-character timeout)
 }
 
